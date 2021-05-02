@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 100,))
+            if (Physics.Raycast(ray, out hit, 100))
             {
               //Check if we hit interactable
               //if we did make this our focus

@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		float distance = vector3.Distance(target.position, transform.position);
+		float distance = Vector3.Distance(target.position, transform.position);
 
 		if (distance <= lookRadius)
 		{
@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
 	void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.postiton, lookRadius);
+		Gizmos.DrawWireSphere(transform.position, lookRadius);
 	}
 }
 
