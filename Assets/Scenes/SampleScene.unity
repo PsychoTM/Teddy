@@ -581,7 +581,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSpeed: 1
   attackCooldown: 0
-  attackDelay: 0.6
 --- !u!114 &210341255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,12 +595,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   maxStamina: 100
-  currentHealth: 0
   currentStamina: 0
   damage:
     baseValue: 7
-  armor:
-    baseValue: 0
 --- !u!1001 &223159981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2320,8 +2316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 210341242}
-  playerCombat: {fileID: 0}
-  playerStats: {fileID: 0}
 --- !u!114 &1079085082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3718,7 +3712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 92518503418448545, guid: 59b1324492548d542a5dc29ff42280d4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.47
+      value: -2.12
       objectReference: {fileID: 0}
     - target: {fileID: 92518503418448545, guid: 59b1324492548d542a5dc29ff42280d4, type: 3}
       propertyPath: m_LocalPosition.z
