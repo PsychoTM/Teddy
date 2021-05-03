@@ -1,40 +1,54 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
+[RequireComponent(typeof(NavMeshAgent))]
 
 public class CharacterStats : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int maxHealth = 100;
-    public int currentHealth { get; private set; }
-
+    public float maxHealth = 100f;
+    public float maxStamina = 100f;
+    public float currentHealth { get; private set; }
+    public float currentStamina;
+    float lastRegen = 0f;
+    float staminaRegenSpeed = 1f;
+    float staminaRegenAmount = 5f;
     public Stats damage;
-    
 
-    void Awake ()
+    NavMeshAgent agent;
+    void Awake()
     {
-        currentHealth = maxHealth; 
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(10);
-        }
+        currentStamina = maxStamina;
+        currentHealth = maxHealth;
     }
 
-    public void TakeDamage (int damage)
+
+
+    public void TakeDamage(int damage)
     {
-       
+
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
         currentHealth -= damage;
         Debug.Log(transform.name + " takes " + damage + " damage ");
-        
+
         if (currentHealth <= 0)
         {
             Die();
         }
     }
+
+
+
     public virtual void Die()
     {
         Debug.Log(transform.name + " died.");
+        Destroy(gameObject);
+        Debug.Log("Game Over");
     }
+
+
+
+    
 }

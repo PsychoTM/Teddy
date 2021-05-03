@@ -11,7 +11,7 @@ public class EnemyStats : CharacterStats
 
         // death animation 
 
-        //Destory(gameObject);
+        Destroy(gameObject);
     }
 }
 

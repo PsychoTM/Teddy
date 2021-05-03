@@ -1,19 +1,25 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
+
 [RequireComponent(typeof(PlayerMotor))]
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(CharacterStats))]
+
+public class PlayerController : MonoBehaviour 
 {
+   
     public Interactable focus;
-
     public LayerMask movementMask;
+    CharacterStats stats;
+    
     Camera cam;
-
+    [SerializeField] private PlayerMotor player;
     PlayerMotor motor;
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
         motor = GetComponent<PlayerMotor>();
+        stats = GetComponent<CharacterStats>();
     }
 
     // Update is called once per frame
@@ -21,17 +27,29 @@ public class PlayerController : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
+
+        //WALKING TO A POINT
+
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            Walk();
+        }
 
-            if(Physics.Raycast(ray, out hit, 100, movementMask))
+        //DASHING TO A POINT
+
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButtonDown(0))
+        {
+            if (stats.currentStamina > 24)
             {
-                motor.MoveToPoint(hit.point);
-
-                RemoveFocus();
+                Dash();
             }
+        }
+
+        //STAMINA REGENERATION
+
+        if(stats.currentStamina < stats.maxStamina)
+        {
+            stats.currentStamina += 5f * Time.deltaTime;
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -48,6 +66,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+      
     }
     void SetFocus (Interactable newFocus)
     {
@@ -69,5 +89,34 @@ public class PlayerController : MonoBehaviour
             focus.OnDefocused();
         focus = null; ;
         motor.StopFollowingTarget();
+    }
+
+    void Dash()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100, movementMask))
+        {
+            motor.DashToPoint(hit.point);
+
+            RemoveFocus();
+            stats.currentStamina -= 20;
+            
+        }
+        
+    }
+
+    void Walk()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100, movementMask))
+        {
+            motor.MoveToPoint(hit.point);
+
+            RemoveFocus();
+
+        }
     }
 }
