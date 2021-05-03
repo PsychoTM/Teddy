@@ -1,13 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(CharacterStats))]
 public class Enemy : Interactable
 {
-    // Start is called before the first frame update
+   
     public override void Interact()
     {
+        CharacterStats myStats;
+        PlayerManager playerManager;
+        void Start()
+        {
+            playerManager = PlayerManager.instance;
+            myStats = GetComponent<CharacterStats>();
+        }
         base.Interact();
-        // Attacking enemy 
+        CharacterCombat playerCombat = playerManager.player.GetComponent<CharacterCombat>();
+        if(playerCombat != null)
+        {
+            playerCombat.Attack();
+        }
     }
 }
