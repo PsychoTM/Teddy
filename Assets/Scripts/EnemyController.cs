@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
 	public float lookRadius = 10f;
 	Transform target;
 	NavMeshAgent agent;
-
+	CharacterCombat combat;
 
 
 	// Start is called before the first frame update
@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
 	{
 		target = PlayerManager.instance.player.transform;
 		agent = GetComponent<NavMeshAgent>();
+		combat = GetComponent<CharacterCombat>();
 
 
 	}
@@ -32,6 +33,15 @@ public class EnemyController : MonoBehaviour
 		{
 			agent.SetDestination(target.position);
 		}
+		if (distance <= agent.stoppingDistance)
+        {
+			CharacterStats targetStats = target.GetComponent<CharacterStats>();
+			if (targetStats != null)
+            {
+				combat.Attack(targetStats);
+            }
+
+        }
 	}
 	void OnDrawGizmosSelected()
 	{
