@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterStats))]
-[RequireComponent(typeof(PlayerManager))]
 public class Enemy : Interactable
 { 
     PlayerManager playerManager;
     CharacterStats myStats;
- 
+    CharacterCombat playerCombat;
     void Start()
     {
         playerManager = PlayerManager.instance;
@@ -18,15 +17,11 @@ public class Enemy : Interactable
 
     public override void Interact()
     {
-    
         base.Interact();
-
         CharacterCombat playerCombat = playerManager.player.GetComponent<CharacterCombat>();
         if (playerCombat != null)
         {
             playerCombat.Attack(myStats);
-
-            
         }
     }
 }
